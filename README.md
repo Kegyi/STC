@@ -23,6 +23,7 @@ STC/
 │   ├── INSTRUCTIONS.md                   how the AI folder works (read this first)
 │   ├── context_map.md                    compressed concept map — always inject (Tier 1)
 │   ├── log_summary.md                    compressed session history — always inject (Tier 1)
+│   ├── roadmap.md                        section priority list — always inject (Tier 1); living document updated after sessions
 │   ├── logs/
 │   │   ├── _template.md                  copy this for each new day
 │   │   └── YYYY-MM-DD.md                 daily session logs
@@ -102,14 +103,15 @@ The model selects Tier 2/3 files **automatically** based on your stated topic us
 These models can fetch URLs directly. Paste the following as your **opening message**:
 
 ```
-Please fetch and read these three files before we begin:
+Please fetch and read these files before we begin:
 
 https://raw.githubusercontent.com/Kegyi/STC/master/ai/INSTRUCTIONS.md
 https://raw.githubusercontent.com/Kegyi/STC/master/ai/context_map.md
 https://raw.githubusercontent.com/Kegyi/STC/master/ai/log_summary.md
+https://raw.githubusercontent.com/Kegyi/STC/master/ai/roadmap.md
 
 Read INSTRUCTIONS.md first — it tells you how to behave in this session.
-Once you have read all three, confirm and ask me what I want to brainstorm.
+Once you have read all four, confirm and ask me what I want to brainstorm.
 From that point, follow the Session Start Protocol in INSTRUCTIONS.md to
 fetch any additional files the topic requires.
 ```

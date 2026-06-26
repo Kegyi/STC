@@ -10,6 +10,7 @@
 |---|---|
 | `context_map.md` | **Tier 1 — always load.** Full STC concept compressed to ~150 lines. |
 | `log_summary.md` | **Tier 1 — always load.** Cross-session history: decisions made, open threads. |
+| `roadmap.md` | **Tier 1 — always load.** Living priority list of sections by work needed. Use to suggest focus topics and to update after sessions. |
 | `sections/NN_topic.md` | **Tier 2 — load for session focus.** Compressed context map for one Reference Manual section: locked decisions, open questions, compliance notes, cross-refs. Created on demand. |
 | `logs/YYYY-MM-DD.md` | **Load when resuming a specific day.** Full session log. |
 | `logs/_template.md` | Template for new daily log. Do not inject. |
@@ -23,7 +24,8 @@
 Read `context_map.md` and `log_summary.md` before anything else.
 
 **Step 2 — Identify focus:**
-Ask the user (or infer from their opening message) what topic they want to brainstorm.
+Ask the user (or infer from their opening message) what topic they want to brainstorm.  
+If the user has **not stated a topic**, consult `roadmap.md` and suggest the top Critical-tier section that has not yet been brainstormed.
 
 **Step 3 — Look up the Topic Registry (below) and load additional context:**
 - Match the topic to a row in the registry
@@ -96,6 +98,7 @@ After each session:
 1. **Append** an entry to `logs/YYYY-MM-DD.md` (copy `_template.md` if new day)
 2. **Update** `log_summary.md` — new decisions to the table, updated open threads
 3. **Create or update** `ai/sections/NN_topic.md` — lock in decisions made, update open questions (copy `sections/_template.md` if this is the first session on that section)
+4. **Update `ai/roadmap.md`** — reduce work estimate for closed gaps, add newly discovered gaps, re-rank if a dependency was resolved, append a row to the Change Log
 
 The model may draft all three of these at the end of the session if asked.
 
@@ -124,6 +127,7 @@ https://raw.githubusercontent.com/Kegyi/STC/master/<path>
 ```
 https://raw.githubusercontent.com/Kegyi/STC/master/ai/context_map.md
 https://raw.githubusercontent.com/Kegyi/STC/master/ai/log_summary.md
+https://raw.githubusercontent.com/Kegyi/STC/master/ai/roadmap.md
 ```
 
 **Tier 2 — section context maps (fetch by topic):**
