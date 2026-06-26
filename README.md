@@ -1,5 +1,8 @@
 # System-Topology Compiler (STC) — Workspace Guide
 
+**Repository:** https://github.com/Kegyi/STC  
+**Raw file base URL:** `https://raw.githubusercontent.com/Kegyi/STC/master/`
+
 This workspace contains the design documentation and brainstorming infrastructure for the **STC concept** — a declarative compilation framework that transforms software architecture into optimized, distributed binaries by fully decoupling business logic from execution infrastructure.
 
 ---

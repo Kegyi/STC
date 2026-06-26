@@ -109,3 +109,34 @@ The model may draft all three of these at the end of the session if asked.
 - **Flag compliance implications** when discussing execution patterns — always note if something would be banned under MISRA/ASIL-D/DO-178C.
 - **Conclude with actionable output**: a design decision, a new open question, or a concrete next step — not just observations.
 
+---
+
+## Fetching Files via URL (Web-Capable Models)
+
+All files are publicly available at: `https://github.com/Kegyi/STC`
+
+Raw file URL pattern:
+```
+https://raw.githubusercontent.com/Kegyi/STC/master/<path>
+```
+
+**Tier 1 — always fetch:**
+```
+https://raw.githubusercontent.com/Kegyi/STC/master/ai/context_map.md
+https://raw.githubusercontent.com/Kegyi/STC/master/ai/log_summary.md
+```
+
+**Tier 2 — section context maps (fetch by topic):**
+```
+https://raw.githubusercontent.com/Kegyi/STC/master/ai/sections/06_dynamic_reconfiguration.md
+https://raw.githubusercontent.com/Kegyi/STC/master/ai/sections/20_dynamic_swapping.md
+```
+
+**Tier 3 — full section spec files:**
+```
+https://raw.githubusercontent.com/Kegyi/STC/master/docs/STC%20Co-Pilot%20%26%20Systems%20Architect%20Reference%20Manual/sections/NN_topic.md
+```
+
+Replace `NN_topic` with the section filename (e.g., `06_dynamic_reconfiguration_live_morphing_operations.md`).  
+Spaces in the path are encoded as `%20`, `&` as `%26`.
+
