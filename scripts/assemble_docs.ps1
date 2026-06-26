@@ -74,6 +74,10 @@ foreach ($file in $sectionFiles) {
     $content = [System.IO.File]::ReadAllText($file.FullName, [System.Text.Encoding]::UTF8)
     # Strip the breadcrumb comment added by the split script
     $content = $content -replace '(?m)^<!-- Part of:.+-->\r?\n\r?\n', ''
+    # Rewrite cross-file anchor links back to same-page anchors for the assembled doc
+    # e.g. ](19_legend.md#acronym-RCU) → ](#acronym-RCU)
+    # e.g. ](06_dynamic_reconfiguration_live_morphing_operations.md#6-dynamic-...) → ](#6-dynamic-...)
+    $content = $content -replace '\]\([\w\-\.]+\.md#([^)]+)\)', '](#$1)'
     $null = $sb.AppendLine($content.TrimEnd())
     $null = $sb.AppendLine()
     $null = $sb.AppendLine("---")

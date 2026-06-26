@@ -45,7 +45,7 @@ Prevents physical resource interference between critical and non-critical module
 The compiler injects non-functional SLA monitors onto active edges. If an edge SLA (e.g., `< 30ms` latency over 5G) is violated at runtime, the monitoring guard triggers a dynamic reconfiguration event, hot-swapping the active routing pointer to a resilient buffered or rollback netcode path without halting execution.
 
 ### 7. Zero-Intrusion Observability (Symmetric Telemetry)
-Functional blocks contain zero logging or metric-gathering code. Telemetry is synthesized directly on the edges at compile-time, mapping execution transits to hardware-level tracing mechanisms (such as Intel PT, ARM CoreSight, or kernel-bypass static [eBPF](#acronym-eBPF) probes) to read metrics directly from registers and cache lines with zero CPU-cycle overhead.
+Functional blocks contain zero logging or metric-gathering code. Telemetry is synthesized directly on the edges at compile-time, mapping execution transits to hardware-level tracing mechanisms (such as Intel PT, ARM CoreSight, or kernel-bypass static [eBPF](19_legend.md#acronym-eBPF) probes) to read metrics directly from registers and cache lines with zero CPU-cycle overhead.
 
 ### 8. Compiler-Enforced Single Responsibility Principle (SRP)
 The compiler makes it structurally impossible for a functional block to implement non-functional concerns. A Lego block can only execute domain logic. All cross-cutting concerns (logging, networking, thread sync) are automatically synthesized onto the edges as decoupled decorators.

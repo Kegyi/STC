@@ -2,7 +2,7 @@
 
 ## 20. Dynamic Swapping — Implementation Patterns
 
-This section provides implementation-level detail for the three hot-swap execution patterns supported under Strategy A (Runtime Hot-Swap), as introduced in [Section 6](#6-dynamic-reconfiguration--live-morphing-operations). It includes known traps, C++ code notation, and an architectural trade-off evaluation.
+This section provides implementation-level detail for the three hot-swap execution patterns supported under Strategy A (Runtime Hot-Swap), as introduced in [Section 6](06_dynamic_reconfiguration_live_morphing_operations.md#6-dynamic-reconfiguration--live-morphing-operations). It includes known traps, C++ code notation, and an architectural trade-off evaluation.
 
 ---
 

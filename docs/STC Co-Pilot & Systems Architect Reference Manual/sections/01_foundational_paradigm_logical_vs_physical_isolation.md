@@ -20,6 +20,6 @@ graph LR
 ```
 
 *   **Logical Decoupling:** Lego modules (Pillar 1 Bricks) contain purely mathematical, declarative, and sequential operations [1]. They do not configure, nor do they dynamically inspect, where they run or how they communicate.
-*   **Physical Morphing:** The compiler maps logical edges to hardware execution mechanisms (Clay) [1]. An edge between Node A and Node B can compile to a direct register-to-register assembly instruction, a lock-free ring buffer (Disruptor) [1], an in-memory shared memory segment (SHM) [2], or a kernel-bypass network packet ([DPDK](#acronym-DPDK)/[AF_XDP](#acronym-AF_XDP)) [3], depending on the target environment profile declared in the YAML recipe.
+*   **Physical Morphing:** The compiler maps logical edges to hardware execution mechanisms (Clay) [1]. An edge between Node A and Node B can compile to a direct register-to-register assembly instruction, a lock-free ring buffer (Disruptor) [1], an in-memory shared memory segment (SHM) [2], or a kernel-bypass network packet ([DPDK](19_legend.md#acronym-DPDK)/[AF_XDP](19_legend.md#acronym-AF_XDP)) [3], depending on the target environment profile declared in the YAML recipe.
 
 <a id="core-architectural-pillars"></a>

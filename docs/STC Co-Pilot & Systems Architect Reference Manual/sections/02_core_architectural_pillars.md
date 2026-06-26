@@ -28,7 +28,7 @@ graph TD
 ### Pillar 1: Functional Bricks (Core Domain Logic)
 *   **Definition:** Pure, stateless, context-free business logic and state structures.
 *   **Requirements:**
-    *   Written strictly in native, memory-aligned C++ Plain Old Data ([POD](#acronym-POD)) classes.
+    *   Written strictly in native, memory-aligned C++ Plain Old Data ([POD](19_legend.md#acronym-POD)) classes.
     *   No thread-synchronization primitives (`std::mutex`, atomics), network headers, logging libraries, or database clients are permitted.
     *   No dynamic memory allocations (`malloc`, `new`, standard containers with heap allocators) are allowed on the hot path.
     *   Logical connectivity is modeled as a Directed Acyclic Graph (DAG) of inputs and outputs, never as a linear execution pipeline.
@@ -41,11 +41,11 @@ graph TD
     *   *Interrupt-Driven Sleep:* Event-driven wakeups using hardware registers (Wait-For-Interrupt - `__WFI`).
     *   *Low-Latency Drivers:* Native polling-mode drivers (PMDs) such as DPDK, AF_XDP, and `io_uring` mapped directly to physical ring descriptors.
 
-### Pillar 3: Data Connections (Protocol Decoupling, [CDB](#acronym-CDB), & [PSA](#acronym-PSA))
+### Pillar 3: Data Connections (Protocol Decoupling, [CDB](19_legend.md#acronym-CDB), & [PSA](19_legend.md#acronym-PSA))
 *   **Definition:** The translation, serialization, and database/caching boundary interfaces that shield core functional logic from external data formats and persistent storage engines.
-*   **Bridges:** Deserialize incoming data (e.g., JSON, Protobuf, gRPC, GTP-U) directly onto the raw memory boundaries of the functional [POD](#acronym-POD)s without intermediate copies.
-*   **Context Database Handlers ([CDB](#acronym-CDB)):** Abstract, un-parsed command-passing driver interfaces (`execute({"CMD", ...})`) used to interact with in-memory caching layers (Valkey, Redis-Lite, Redis Enterprise).
-*   **Persistent Storage Adapters ([PSA](#acronym-PSA)):** Abstract, monadic, compile-time query interfaces (contracts) used to access persistent database layers (SQLite, PostgreSQL, MongoDB, or custom architect-defined DB engines) using zero-allocation stack data mappings.
+*   **Bridges:** Deserialize incoming data (e.g., JSON, Protobuf, gRPC, GTP-U) directly onto the raw memory boundaries of the functional [POD](19_legend.md#acronym-POD)s without intermediate copies.
+*   **Context Database Handlers ([CDB](19_legend.md#acronym-CDB)):** Abstract, un-parsed command-passing driver interfaces (`execute({"CMD", ...})`) used to interact with in-memory caching layers (Valkey, Redis-Lite, Redis Enterprise).
+*   **Persistent Storage Adapters ([PSA](19_legend.md#acronym-PSA)):** Abstract, monadic, compile-time query interfaces (contracts) used to access persistent database layers (SQLite, PostgreSQL, MongoDB, or custom architect-defined DB engines) using zero-allocation stack data mappings.
 *   **Type-Safe Result Containers:** Stack-allocated, zero-heap monadic wrappers (such as `CdbResult` and database query `Result<T, E>`) that prevent memory leaks, exceptions, and pointer-chasing in critical execution paths.
 
 ### Pillar 4: Pipeline Interceptors (Cross-Cutting Logic)
@@ -56,7 +56,7 @@ graph TD
 ### Pillar 5: Infrastructure (OS & Safety Compliance)
 *   **Definition:** The deployment, packaging, and regulatory compliance layer.
 *   **Targets:** Generates bare-metal firmware, RTOS binaries (FreeRTOS, PikeOS, QNX), or orchestrated Kubernetes manifests.
-*   **Compliance Gates:** Automatically performs static AST verification to audit code against safety standards (such as ISO 26262 [ASIL-D](#acronym-ASIL-D), IEC 62304 Class C, and [MISRA](#acronym-MISRA)-C++).
+*   **Compliance Gates:** Automatically performs static AST verification to audit code against safety standards (such as ISO 26262 [ASIL-D](19_legend.md#acronym-ASIL-D), IEC 62304 Class C, and [MISRA](19_legend.md#acronym-MISRA)-C++).
 
 ---
 

@@ -42,7 +42,7 @@ The compilation stages themselves run as a Directed Acyclic Graph (DAG) of indep
 
 ### 3. Verification & Constraints
 Before code generation, the compiler executes formal validation passes:
-*   *Temporal Constraint Solver:* Proves that hard real-time execution blocks meet Worst-Case Execution Time ([WCET](#acronym-WCET)) bounds.
+*   *Temporal Constraint Solver:* Proves that hard real-time execution blocks meet Worst-Case Execution Time ([WCET](19_legend.md#acronym-WCET)) bounds.
 *   *Memory Guard:* Proves that static memory allocations do not exceed target embedded hardware SRAM/Flash limits.
 *   *Compliance Verifier:* Audits AST structures to ensure zero dynamic memory allocations on safety-critical paths.
 

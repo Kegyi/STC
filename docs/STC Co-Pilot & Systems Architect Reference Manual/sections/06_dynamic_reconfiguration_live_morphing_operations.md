@@ -31,7 +31,7 @@ For environments requiring continuous availability, the compiler injects a backg
 #### The Hot-Swap Sequence:
 1.  **Dynamic Loading:** The application calls `dlopen()` to load the newly compiled module `.so` into its active address space.
 2.  **Path Handoff Execution:**
-    *   *Option 1 ([RCU](#acronym-RCU) Pointer Swap):* The active function pointers on the edges are swapped atomically via an epoch-based memory fence.
+    *   *Option 1 ([RCU](19_legend.md#acronym-RCU) Pointer Swap):* The active function pointers on the edges are swapped atomically via an epoch-based memory fence.
     *   *Option 2 (Double-Buffer):* The controller thread switches the active route selector to the new path. Upstream packets flow to the new module instantly. The old path is allowed to drain its active queue.
 3.  **Reclamation:** Once epoch tracking confirms all threads have cleared the old path, the controller thread executes `dlclose()` on the old module, completing the live morphing sequence with zero dropped packets and zero service downtime.
 
