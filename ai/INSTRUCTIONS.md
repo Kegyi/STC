@@ -94,13 +94,67 @@ Match the user's topic to one or more rows. Load all matched files.
 
 ## Session End Protocol
 
-After each session:
-1. **Append** an entry to `logs/YYYY-MM-DD.md` (copy `_template.md` if new day)
-2. **Update** `log_summary.md` — new decisions to the table, updated open threads
-3. **Create or update** `ai/sections/NN_topic.md` — lock in decisions made, update open questions (copy `sections/_template.md` if this is the first session on that section)
-4. **Update `ai/roadmap.md`** — reduce work estimate for closed gaps, add newly discovered gaps, re-rank if a dependency was resolved, append a row to the Change Log
+### When to initiate
 
-The model may draft all three of these at the end of the session if asked.
+Propose a session wrap-up when **any** of these conditions are true:
+- A concrete decision was reached (something is now "locked")
+- A gap was closed or a new gap was discovered
+- The user says they are done, or the conversation has reached a natural conclusion
+- The session has produced at least one thing worth preserving — even a single new open question counts
+
+Do **not** wait for the user to ask. When the trigger fires, say:
+
+> "We've reached a good stopping point. I'll prepare the session updates — give me a moment."
+
+Then immediately draft all four updates (see below). Present them to the user for confirmation before writing anything.
+
+---
+
+### What to update
+
+| File | What to do |
+|---|---|
+| `logs/YYYY-MM-DD.md` | Append a new session block (copy structure from existing blocks in the file; create the file from `_template.md` if today has no log yet) |
+| `log_summary.md` | Add new decisions to the Decisions Log table; update Open Threads if any were opened or closed |
+| `ai/sections/NN_topic.md` | Create from `sections/_template.md` if first session on this section; otherwise update — move open questions to locked decisions if resolved, add newly discovered gaps |
+| `roadmap.md` | Reduce work estimate if gaps were closed; add newly discovered gaps; re-rank if a dependency resolved; append a row to the Change Log |
+
+---
+
+### Write-capable model (VS Code Copilot)
+
+1. Draft all four updates in the chat for the user to review
+2. Ask: **"Shall I apply these changes?"**
+3. On confirmation — write the files directly using file tools
+4. Commit and push: `git add -A ; git commit -m "Session log YYYY-MM-DD: [topic]" ; git push`
+
+---
+
+### Read-only model (ChatGPT, Claude.ai, Gemini, etc.)
+
+1. Draft all four updates in the chat
+2. Present each as a clearly labelled, copy-pasteable block:
+
+```
+─── UPDATE: ai/logs/2026-06-27.md ─── APPEND TO END ───────────────────
+### Session [N] — [Topic]
+[full session block content]
+────────────────────────────────────────────────────────────────────────
+
+─── UPDATE: ai/log_summary.md ─── ADD TO DECISIONS TABLE ───────────────
+| YYYY-MM-DD | [decision text] |
+────────────────────────────────────────────────────────────────────────
+
+─── UPDATE: ai/sections/NN_topic.md ─── [CREATE / REPLACE SECTION] ─────
+[full file content or specific section to replace]
+────────────────────────────────────────────────────────────────────────
+
+─── UPDATE: ai/roadmap.md ─── REPLACE ROW + APPEND CHANGE LOG ──────────
+[specific row or change log entry]
+────────────────────────────────────────────────────────────────────────
+```
+
+3. Tell the user: **"Copy each block above into the corresponding file, then commit and push."**
 
 ---
 
