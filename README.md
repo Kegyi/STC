@@ -91,54 +91,80 @@ STC/
 | **Tier 2 — Focus** | `ai/sections/NN_topic.md` | Compressed context for the target section |
 | **Tier 3 — Deep dive** | `docs/.../sections/NN_topic.md` | Full spec text when needed |
 
-The model selects Tier 2/3 files **automatically** based on your stated topic using the Topic Registry in `ai/INSTRUCTIONS.md`. In VS Code Copilot it fetches them using file tools; in a plain chat it tells you exactly which files to attach.
+The model selects Tier 2/3 files **automatically** based on your stated topic using the Topic Registry in `ai/INSTRUCTIONS.md`.
 
 > **Never paste the full `v2026.1.0.md`** into a chat. It is 2000+ lines. Use individual section files.
 
 ---
 
-### Session Prompt Examples
+### Option A — Web AI (ChatGPT, Claude.ai, Gemini, Perplexity, …)
 
-#### 1. New session — state your topic, let the model handle context loading
+These models can fetch URLs directly. Paste the following as your **opening message**:
+
 ```
-I've attached ai/INSTRUCTIONS.md, ai/context_map.md, and ai/log_summary.md.
+Please fetch and read these three files before we begin:
 
+https://raw.githubusercontent.com/Kegyi/STC/master/ai/INSTRUCTIONS.md
+https://raw.githubusercontent.com/Kegyi/STC/master/ai/context_map.md
+https://raw.githubusercontent.com/Kegyi/STC/master/ai/log_summary.md
+
+Read INSTRUCTIONS.md first — it tells you how to behave in this session.
+Once you have read all three, confirm and ask me what I want to brainstorm.
+From that point, follow the Session Start Protocol in INSTRUCTIONS.md to
+fetch any additional files the topic requires.
+```
+
+That's it. The model reads the Topic Registry from `INSTRUCTIONS.md` and fetches whatever Tier 2/3 files match your topic automatically.
+
+**Resuming from a previous session?** Add the log URL:
+```
+Also fetch: https://raw.githubusercontent.com/Kegyi/STC/master/ai/logs/YYYY-MM-DD.md
+```
+
+---
+
+### Option B — VS Code Copilot (this workspace)
+
+Copilot has direct file access — no URLs needed. Just state your topic:
+
+```
 Topic: I want to brainstorm how to make the hot-swap strategy selection
 (Option 1 / 2 / 3) recipe-driven rather than a manual implementation choice.
 ```
-*The model matches "hot-swap / strategy" in the Topic Registry, loads `ai/sections/06_dynamic_reconfiguration.md` and `ai/sections/20_dynamic_swapping.md` automatically, then proceeds.*
+
+Copilot reads the Topic Registry from `ai/INSTRUCTIONS.md` and loads the matched files using its file tools automatically.
 
 ---
 
-#### 2. Domain expansion
-```
-I've attached ai/INSTRUCTIONS.md, ai/context_map.md, and ai/log_summary.md.
+### Session Prompt Examples (for both options)
 
+#### 1. Brainstorm a specific open question
+```
+Topic: I want to brainstorm how to make the hot-swap strategy selection
+(Option 1 / 2 / 3) recipe-driven rather than a manual implementation choice.
+```
+*Model matches "hot-swap / strategy" → fetches `ai/sections/06_dynamic_reconfiguration.md` and `ai/sections/20_dynamic_swapping.md`.*
+
+#### 2. Evaluate a domain expansion
+```
 Topic: Evaluate the 4 aerospace improvements and pick the most feasible one
 to spec out as a new Reference Manual section.
 ```
-*Model matches "aerospace / DO-178C" → loads `improvement_ideas/part_11_Aerospace.md`.*
+*Model matches "aerospace / DO-178C" → fetches `docs/improvement_ideas/part_11_Aerospace.md`.*
 
----
-
-#### 3. Resuming from a previous session
+#### 3. First deep dive into a section
 ```
-I've attached ai/INSTRUCTIONS.md, ai/context_map.md, ai/log_summary.md,
-and ai/logs/2026-06-26.md.
-
-Resume from yesterday — pick up the open question on Direction B.
-```
-
----
-
-#### 4. First time on a section with no Tier 2 context yet
-```
-I've attached ai/INSTRUCTIONS.md, ai/context_map.md, and ai/log_summary.md.
-
 Topic: Deep dive into the Conditional Compliance Framework (Section 09).
 Find gaps and flag open questions.
 ```
-*Model finds no Tier 2 file for section 09, loads Tier 3 directly, and offers to draft the `ai/sections/09_conditional_compliance.md` context map at the end.*
+*No Tier 2 file for section 09 yet — model fetches Tier 3 directly and offers to draft the section context map at the end.*
+
+#### 4. Resume from a previous session
+```
+Also fetch: https://raw.githubusercontent.com/Kegyi/STC/master/ai/logs/2026-06-26.md
+
+Resume from yesterday — pick up the open question on Direction B.
+```
 
 ---
 
