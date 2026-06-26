@@ -1,6 +1,6 @@
 # STC Context Map
 **Purpose:** Cheap context injection for AI brainstorming sessions — use this instead of the full documents.  
-**Generated:** 2026-06-25 | **Version:** 2026.1.0
+**Generated:** 2026-06-25 | **Last reviewed:** 2026-06-26 | **Version:** 2026.1.0
 
 ---
 
@@ -19,7 +19,8 @@ The design philosophy is **Subtractive Physics Synthesis**: the compiler assumes
 | `docs/improvement_ideas/dynamic_swapping_proposals.md` | Swapping enhancement proposals | Compiler-synthesized strategy, POD state transfusion, formal verification loop |
 | `docs/STC Architectural Core Reference/v2026.1.0.md` | Full architectural reference | Detailed pillar specs, CDB/PSA, compliance framework, memory model, transport taxonomy |
 | `docs/STC Co-Pilot & Systems Architect Reference Manual/v2026.1.0.md` | **Authoritative reference manual** | All pillars, compiler passes, multi-language support, recipe schema formalization |
-| `docs/STC Co-Pilot & Systems Architect Reference Manual/sections/` | Split sections of the manual | 19 focused files named NN_topic.md — share individually for deep dives |
+| `docs/STC Co-Pilot & Systems Architect Reference Manual/sections/` | Split sections of the manual | **20** focused files named NN_topic.md — share individually for deep dives |
+| `docs/STC Co-Pilot & Systems Architect Reference Manual/sections/20_dynamic_swapping_implementation_patterns.md` | Implementation detail for Strategy A hot-swap | 3 options (RCU, double-buffer, SHM) with C++ code, trap catalogue, trade-off table |
 | `docs/improvement_ideas/summary.md` | Improvement proposals | 4 improvement dimensions, production likelihood rankings, 3 open brainstorm directions |
 | `docs/improvement_ideas/part_*.md` | Domain-specific expansions | Cloud SaaS, Telecom, MedTech, Robotics, IoT, Gaming, Aerospace, FinTech/HFT |
 
