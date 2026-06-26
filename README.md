@@ -18,6 +18,8 @@ You write pure domain logic as C++ POD structs ("Lego Bricks"). A YAML recipe de
 ```
 STC/
 ├── README.md                          ← you are here
+├── .github/
+│   └── copilot-instructions.md           VS Code Copilot: auto-loads STC context at session start
 │
 ├── ai/                                ← AI brainstorming session files
 │   ├── INSTRUCTIONS.md                   how the AI folder works (read this first)
