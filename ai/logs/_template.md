@@ -18,9 +18,6 @@
 **New questions raised:**
 -
 
-**Decisions made:**
--
-
 **Next session suggestion:**
 
 

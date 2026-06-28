@@ -15,6 +15,7 @@
 | `logs/YYYY-MM-DD.md` | **Load when resuming a specific day.** Full session log. |
 | `logs/_template.md` | Template for new daily log. Do not inject. |
 | `sections/_template.md` | Template for new section context map. Do not inject. |
+| `session_scratch.md` | **End-of-brainstorm scratch pad.** AI fills this in at the end of every productive session (same response as the brainstorm output). On the next "apply/commit" turn, AI reads only this one file and writes all updates mechanically. Set `Status: applied` after each apply. |
 
 ---
 
@@ -33,7 +34,10 @@ If the user has **not stated a topic**, consult `roadmap.md` and suggest the top
 - If the session needs the actual spec text → also load the **Tier 3** file
 - If no Tier 2 file exists yet for the topic → load Tier 3 directly, and offer to create the Tier 2 context map at the end of the session
 
-**Step 4 — Confirm focus and proceed.**
+**Step 4 — Check for a pending scratch pad:**  
+Read `ai/session_scratch.md`. If `Status: draft` is present, a previous session was not yet applied. Say: *"There's a pending draft from [date] on [topic] — apply it first, or discard and start fresh?"* Do not proceed with a new brainstorm topic until resolved.
+
+**Step 5 — Confirm focus and proceed.**
 
 > **Running with file tools (VS Code Copilot agent):** Fetch the files autonomously using the file read tool — do not ask the user to paste them.  
 > **Running without tools (plain chat):** Tell the user exactly which file paths to attach before proceeding.
@@ -106,7 +110,7 @@ Do **not** wait for the user to ask. When the trigger fires, say:
 
 > "We've reached a good stopping point. I'll prepare the session updates — give me a moment."
 
-Then immediately draft all four updates (see below). Present them to the user for confirmation before writing anything.
+Then immediately write `ai/session_scratch.md` using the **Scratch Pad Format** defined at the bottom of this file. **No user confirmation needed to write the scratch pad** — it is a draft, not a live file. The brainstorm output and the scratch pad write happen in the same response.
 
 ---
 
@@ -114,18 +118,25 @@ Then immediately draft all four updates (see below). Present them to the user fo
 
 | File | What to do |
 |---|---|
-| `logs/YYYY-MM-DD.md` | Append a new session block (copy structure from existing blocks in the file; create the file from `_template.md` if today has no log yet) |
-| `log_summary.md` | Add new decisions to the Decisions Log table; update Open Threads if any were opened or closed |
-| `ai/sections/NN_topic.md` | Create from `sections/_template.md` if first session on this section; otherwise update — move open questions to locked decisions if resolved, add newly discovered gaps |
-| `roadmap.md` | Reduce work estimate if gaps were closed; add newly discovered gaps; re-rank if a dependency resolved; append a row to the Change Log |
+| `session_scratch.md` | **Write at end of brainstorm (same response).** Use the Scratch Pad Format at the bottom of this file. All other updates are derived from this single file. |
+| `ai/sections/NN_topic.md` | Write as a full file using **Section 1** of the scratch pad. No targeted replacement needed — overwrite the whole file. |
+| `logs/YYYY-MM-DD.md` | Append **Section 2** of the scratch pad. Create the file from `_template.md` if none exists for today. |
+| `log_summary.md` | Append the decision row from **Section 3** of the scratch pad. Update Open Threads if any were opened or closed. |
+| `roadmap.md` | Apply the delta from **Section 4** of the scratch pad: replace the old row with the new row and append the change log entry. |
+| `context_map.md` | Bump `Last reviewed` date. |
+| `INSTRUCTIONS.md` | Mark the Topic Registry row `✓` if this was the first brainstorm session on the topic. |
 
 ---
 
 ### Write-capable model (VS Code Copilot)
 
-1. Draft all four updates in the chat for the user to review
-2. Ask: **"Shall I apply these changes?"**
-3. On confirmation — write the files directly using file tools
+**At end of brainstorm (same response as the brainstorm output):**
+1. Write `ai/session_scratch.md` — no user confirmation needed.
+
+**When user says "apply", "update files", or "commit":**
+1. Read `ai/session_scratch.md` — the only file you need to read.
+2. Write the update files using the pre-formatted content from the scratch pad sections.
+3. Set `Status: applied` in `session_scratch.md`.
 4. Commit and push: `git add -A ; git commit -m "Session log YYYY-MM-DD: [topic]" ; git push`
 
 ---
@@ -157,6 +168,97 @@ Then immediately draft all four updates (see below). Present them to the user fo
 3. Tell the user: **"Copy each block above into the corresponding file, then commit and push."**
 
 ---
+
+## Session Scratch Pad Format
+
+The AI fills in this template at the end of every productive brainstorm, **in the same response as the brainstorm output**. Save as `ai/session_scratch.md`, overwriting whatever was there before.
+
+```markdown
+# Session Scratch
+**Date:** YYYY-MM-DD  
+**Section:** NN — [Section Title]  
+**Status:** draft
+
+---
+
+## 1 · Section Context Map
+*Write as full file to `ai/sections/NN_topic.md` (create or overwrite)*
+
+# Section NN — [Section Title]
+**Reference file:** `docs/STC Co-Pilot & Systems Architect Reference Manual/sections/NN_topic.md`
+**Last updated:** YYYY-MM-DD
+
+---
+
+## What This Section Specifies
+[2–3 sentences]
+
+---
+
+## Locked Decisions
+-
+
+---
+
+## Open Questions / Tensions
+-
+
+---
+
+## Compliance Implications
+-
+
+---
+
+## Cross-References
+-
+
+---
+
+## 2 · Log Entry
+*Append to `ai/logs/YYYY-MM-DD.md` (create file from _template.md if none exists for today)*
+
+### Session [N] — Topic: [focus]
+
+**Goal:** [one sentence]
+
+**Key conclusions:**
+-
+
+**New questions raised:**
+-
+
+**Next session suggestion:** [one sentence]
+
+---
+
+## 3 · Log Summary Decision Row
+*Append to the Decisions Log table in `ai/log_summary.md`*
+
+| YYYY-MM-DD | [one-line summary of decisions locked this session] |
+
+---
+
+## 4 · Roadmap Delta
+*Apply to `ai/roadmap.md`*
+
+- **Section:** NN
+- **Old row:** `| **N** | **NN — Title** | OLD-WORK | old key gap text |`
+- **New row:** `| **N** | **NN — Title** | NEW-WORK | new key gap text |`
+- **Tier change:** [old tier → new tier, or "no change"]
+- **Change log entry:** `| YYYY-MM-DD | one-line summary |`
+
+---
+
+## 5 · Checklist
+- [ ] `ai/session_scratch.md` — written (this file)
+- [ ] `ai/sections/NN_topic.md` — written from Section 1
+- [ ] `ai/logs/YYYY-MM-DD.md` — appended from Section 2
+- [ ] `ai/log_summary.md` — decision row appended from Section 3
+- [ ] `ai/roadmap.md` — delta applied from Section 4
+- [ ] `ai/context_map.md` — `Last reviewed` date bumped
+- [ ] `ai/INSTRUCTIONS.md` — Topic Registry row marked `✓` *(only if first session on this topic)*
+```
 
 ## Brainstorming Guidelines
 
