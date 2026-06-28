@@ -1,6 +1,6 @@
 # STC Log Summary
 **Purpose:** Compressed cross-session memory — inject this alongside `context_map.md` at the start of every session.  
-**Last updated:** 2026-06-26
+**Last updated:** 2026-06-28
 
 ---
 
@@ -51,3 +51,4 @@
 | 2026-06-26 | Three-tier context model established; `ai/sections/` folder created with template and first two context maps (06, 20) |
 | 2026-06-26 | Topic Registry added to `INSTRUCTIONS.md` — model auto-selects files based on stated topic |
 | 2026-06-26 | Repo published: https://github.com/Kegyi/STC (public); raw URL pattern documented in INSTRUCTIONS.md and README |
+| 2026-06-28 | Section 04 Clay AST: component schema = flat typed catalog (EnTT Option A); query semantics = declarative manifest + runtime dispatch; lifecycle = write-once per phase (Model II). Four follow-on questions raised (see `ai/sections/04_clay_ast.md`). §13 ECS interaction contract gap closed. |

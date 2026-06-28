@@ -1,6 +1,6 @@
 # STC Brainstorming Roadmap
 **Purpose:** Living priority list for concept development sessions. Always inject alongside `context_map.md` and `log_summary.md`.  
-**Last updated:** 2026-06-26  
+**Last updated:** 2026-06-28  
 **How to update:** After a session that changes a section's state, update the row — change work estimate, move it up/down, or add a note. Major priority shifts should also be recorded in `log_summary.md`.
 
 ---
@@ -19,15 +19,15 @@
 
 | # | Section | Work | Key gap |
 |---|---|---|---|
-| **1** | **04 — Clay AST** | HIGH | ECS component structs undefined; no pass query semantics; no component lifecycle rules. Blocks all of Section 13. |
-| **2** | **10 — Memory Model** | HIGH | Lease lifetime unformalized — no DAG-based calculation algorithm, no violation detection. Blocks P14–P17 synthesis passes. |
-| **3** | **13 — Compiler Passes** | HIGH | Pass list complete but ECS interaction contract, parallel stage execution model, and error recovery flow are missing. |
-| **4** | **09 — Compliance Framework** | HIGH | Profiles listed but not defined. No composition/override rules, no audit artifact schemas. Blocks P9 verifier pass. |
+| **1** | **10 — Memory Model** | HIGH | Lease lifetime unformalized — no DAG-based calculation algorithm, no violation detection. Blocks P14–P17 synthesis passes. |
+| **2** | **13 — Compiler Passes** | HIGH | Parallel stage execution model and error recovery flow unspecified. (ECS interaction contract resolved via §04 brainstorm 2026-06-28.) |
+| **3** | **09 — Compliance Framework** | HIGH | Profiles listed but not defined. No composition/override rules, no audit artifact schemas. Blocks P9 verifier pass. |
 
 ### 🟠 High — Foundational, underspecified
 
 | # | Section | Work | Key gap |
 |---|---|---|---|
+| **4** | **04 — Clay AST** | LOW-MED | Core decisions locked (component schema, query semantics, lifecycle). Four follow-on items: phase enforcement mechanism, pass manifest schema (→ §15), parallel scheduler design within a phase, component removal semantics. |
 | **5** | **01 — Foundational Paradigm** | MED-HIGH | Lego/Clay split is intuitive but not formally bounded. No per-profile mapping rules. No fallback if isolation cannot be maintained. |
 | **6** | **12 — Transport Taxonomy** | MED-HIGH | Layer 0 calling convention unspecified. SLA breach detection undefined. Bridge auto-generation algorithm incomplete. |
 | **7** | **16 — Multi-Language** | MED-HIGH | Bridge implementation templates missing. ABI compatibility checking unspecified. Cross-language type conversion edge cases undefined. |
@@ -57,10 +57,10 @@
 ## Recommended Starting Sequence
 
 ```
-04 (Clay AST) → 10 (Memory Model) → 13 (Passes) → 09 (Compliance)
+10 (Memory Model) → 13 (Passes) → 09 (Compliance)
 ```
 
-04 and 13 are tightly coupled — formalize the ECS component schema first (04), then the pass interaction contract is implementable (13). Sections 10 and 09 are independent and can follow in parallel sessions.
+04 (Clay AST) is partially complete — core decisions locked 2026-06-28. Remaining §04 items (4 follow-on questions) are low-priority and can be addressed during §13 brainstorm. The critical path is now §10 and §13 (which can be brainstormed in parallel), followed by §09.
 
 ---
 
@@ -69,3 +69,4 @@
 | Date | Change |
 |---|---|
 | 2026-06-26 | Initial priority list created from full section audit |
+| 2026-06-28 | §04 Clay AST core decisions locked; moved from Critical to High tier; §13 ECS interaction contract gap closed; recommended sequence updated |

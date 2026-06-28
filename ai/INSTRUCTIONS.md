@@ -54,7 +54,7 @@ Match the user's topic to one or more rows. Load all matched files.
 | logical/physical isolation, lego/clay, POD, decoupling | *(not yet)* | `01_foundational_paradigm_logical_vs_physical_isolation.md` |
 | pillars, 5 pillars, execution physics, pipeline interceptors, infrastructure | *(not yet)* | `02_core_architectural_pillars.md` |
 | principles, STC principles, subtractive physics, isomorphic, lifetime conservation, hermeticity, reactive physics, zero-intrusion | *(not yet)* | `03_core_compiler_principles.md` |
-| compiler internals, clay AST, ECS IR, pass-DAG, STC-LSP, codegen, ingest | *(not yet)* | `04_compiler_architecture_the_clay_ast.md` |
+| compiler internals, clay AST, ECS IR, pass-DAG, STC-LSP, codegen, ingest, component schema, pass manifest, lifecycle, phase-gated mutation | `04_clay_ast.md` ✓ | `04_compiler_architecture_the_clay_ast.md` |
 | YAML recipe, topology recipe, DSL, archetype, recipe schema, node/edge spec | *(not yet)* | `05_declarative_topology_recipe_specification_yaml.md` |
 | hot-swap, live morphing, reconfiguration, strategy A, strategy B, dlopen, topology controller thread | `06_dynamic_reconfiguration.md` ✓ | `06_dynamic_reconfiguration_live_morphing_operations.md` |
 | CDB, context database, cache, redis, valkey, caching layer, ZADD | *(not yet)* | `07_realtime_context_database_cdb_implementation.md` |

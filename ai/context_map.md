@@ -1,6 +1,6 @@
 # STC Context Map
 **Purpose:** Cheap context injection for AI brainstorming sessions — use this instead of the full documents.  
-**Generated:** 2026-06-25 | **Last reviewed:** 2026-06-26 | **Version:** 2026.1.0
+**Generated:** 2026-06-25 | **Last reviewed:** 2026-06-28 | **Version:** 2026.1.0
 
 ---
 
