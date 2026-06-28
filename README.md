@@ -25,14 +25,14 @@ STC/
 │   ├── INSTRUCTIONS.md                   how the AI folder works (read this first)
 │   ├── context_map.md                    compressed concept map — always inject (Tier 1)
 │   ├── log_summary.md                    compressed session history — always inject (Tier 1)
-│   ├── roadmap.md                        section priority list — always inject (Tier 1); living document updated after sessions
+│   ├── roadmap.md                        section priority list — always inject (Tier 1)
+│   ├── session_scratch.md                end-of-brainstorm scratch pad (auto-cleared after apply)
 │   ├── logs/
 │   │   ├── _template.md                  copy this for each new day
-│   │   └── YYYY-MM-DD.md                 daily session logs
+│   │   └── YYYY-MM-DD.md …               daily session logs — see index below
 │   └── sections/                         section-level context maps — inject for focus area (Tier 2)
 │       ├── _template.md                  copy this when brainstorming a new section for the first time
-│       ├── 06_dynamic_reconfiguration.md
-│       └── 20_dynamic_swapping.md
+│       └── NN_topic.md …                 one file per brainstormed section — see index below
 │
 ├── docs/                              ← all source documentation
 │   ├── STC Architectural Core Reference/
@@ -79,8 +79,22 @@ STC/
 │
 └── scripts/
     ├── split_reference_manual.ps1     splits v2026.1.0.md into sections/ (re-run after editing the big file)
-    └── assemble_docs.ps1              stitches sections/ back into one readable file
+    ├── assemble_docs.ps1              stitches sections/ back into one readable file
+    └── sync-workspace.ps1             refreshes README file index + INSTRUCTIONS.md Topic Registry ✓ markers
 ```
+
+> Run `scripts/sync-workspace.ps1` after every session (or any time files are added to `ai/sections/` or `ai/logs/`) to keep the index below current.
+
+<!-- SYNC:ai-file-index:start -->
+| File | Description |
+|---|---|
+| `ai/sections/04_clay_ast.md` | Tier 2 context map - S04 Clay Ast |
+| `ai/sections/06_dynamic_reconfiguration.md` | Tier 2 context map - S06 Dynamic Reconfiguration |
+| `ai/sections/20_dynamic_swapping.md` | Tier 2 context map - S20 Dynamic Swapping |
+| `ai/logs/2026-06-25.md` | Session log |
+| `ai/logs/2026-06-26.md` | Session log |
+| `ai/logs/2026-06-28.md` | Session log |
+<!-- SYNC:ai-file-index:end -->
 
 ---
 
