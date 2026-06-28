@@ -134,7 +134,13 @@ fetch any additional files the topic requires.
 
 That's it. The model reads the Topic Registry from `INSTRUCTIONS.md` and fetches whatever Tier 2/3 files match your topic automatically.
 
-**Resuming from a previous session?** Add the log URL:
+**Continuing a session that has a pending scratch pad?** Add the scratch pad URL first:
+```
+Also fetch: https://raw.githubusercontent.com/Kegyi/STC/master/ai/session_scratch.md
+```
+The model will detect `Status: draft`, offer to apply it, and then continue.
+
+**Resuming from a fully applied session?** Add the log URL instead:
 ```
 Also fetch: https://raw.githubusercontent.com/Kegyi/STC/master/ai/logs/YYYY-MM-DD.md
 ```
@@ -177,23 +183,51 @@ Find gaps and flag open questions.
 ```
 *No Tier 2 file for section 09 yet — model fetches Tier 3 directly and offers to draft the section context map at the end.*
 
-#### 4. Resume from a previous session
+#### 4a. Continue an in-progress session on a different AI
 ```
-Also fetch: https://raw.githubusercontent.com/Kegyi/STC/master/ai/logs/2026-06-26.md
+Please fetch and read these files before we begin:
 
-Resume from yesterday — pick up the open question on Direction B.
+https://raw.githubusercontent.com/Kegyi/STC/master/ai/INSTRUCTIONS.md
+https://raw.githubusercontent.com/Kegyi/STC/master/ai/context_map.md
+https://raw.githubusercontent.com/Kegyi/STC/master/ai/log_summary.md
+https://raw.githubusercontent.com/Kegyi/STC/master/ai/session_scratch.md
+
+A brainstorm session ended with a pending scratch pad (Status: draft).
+Apply it first, then ask me what I want to do next.
 ```
+*Model reads the scratch pad, applies all file updates, marks Status: applied.*
+
+#### 4b. Resume from a fully completed session
+```
+Also fetch: https://raw.githubusercontent.com/Kegyi/STC/master/ai/logs/2026-06-28.md
+
+Resume from yesterday — pick up the open questions on Section 04.
+```
+*Model loads the log for narrative context and continues from the open questions.*
 
 ---
 
 ## After Each Session
 
-1. Open or create `ai/logs/YYYY-MM-DD.md` (copy `_template.md` if it's a new day)
-2. Fill in the session block — conclusions, decisions, open questions
-3. Update `ai/log_summary.md` — add decisions to the table, update open threads
-4. Create or update `ai/sections/NN_topic.md` — lock in any decisions made, update open questions
+The AI writes `ai/session_scratch.md` automatically at the end of every productive brainstorm — **in the same response, no extra prompt needed**. The scratch pad contains pre-formatted drafts for all file updates.
 
-> The AI model can draft all four of these updates at the end of a session if you ask it to.
+When you are ready to save the session:
+
+1. Say **"apply"** or **"commit"** — the AI reads the scratch pad and writes all files (session context map, log, roadmap, log summary).
+2. Run the sync script to refresh the README index and Topic Registry markers:
+   ```powershell
+   powershell -ExecutionPolicy Bypass -File scripts\sync-workspace.ps1
+   ```
+3. Commit and push:
+   ```powershell
+   git add -A ; git commit -m "Session log YYYY-MM-DD: [topic]" ; git push
+   ```
+
+> **Moving to a different AI mid-session?** The scratch pad is fully self-contained. Add its raw URL to your opening message on the new model:
+> ```
+> Also fetch: https://raw.githubusercontent.com/Kegyi/STC/master/ai/session_scratch.md
+> ```
+> The model detects `Status: draft`, applies all pending updates, and continues.
 
 ---
 
@@ -202,6 +236,9 @@ Resume from yesterday — pick up the open question on Direction B.
 Run from the workspace root (`c:\Users\Kegyi\STC`):
 
 ```powershell
+# Sync README file index + INSTRUCTIONS.md Topic Registry (run after every session)
+powershell -ExecutionPolicy Bypass -File scripts\sync-workspace.ps1
+
 # Reassemble the full Reference Manual into one readable file
 powershell -ExecutionPolicy Bypass -File scripts\assemble_docs.ps1
 
